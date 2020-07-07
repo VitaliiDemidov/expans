@@ -1,58 +1,88 @@
-import React from 'react';
-import logo from './logo.svg';
-import { Counter } from './features/counter/Counter';
+import React, { useState } from 'react';
 import './App.css';
+import List from './List';
+import { addExpanse, setTotal, sortExpanses } from './redux/actions';
+import { connect, useDispatch, useSelector } from 'react-redux';
 
-function App() {
+const App = ({ addExpanse, sortExpanses }) => {
+  const amount = useSelector((state) => state.expanse);
+  const rates = useSelector((state) => state.data.total);
+  const dispatch = useDispatch();
+
+  const [date, setDate] = useState(0);
+  const [number, setNumber] = useState(0);
+  const [name, setName] = useState('');
+  const [currency, setCurrency] = useState('');
+
+  const onDisabled = name && date && number && currency ? false : true;
+  const sum = amount.reduce((acc, item) => acc + +item.number, 0);
+  const EUR = amount.reduce((acc, item) => acc + +item.number / rates, 0);
+
+  const submitValue = () => {
+    const list = {
+      date,
+      number,
+      currency,
+      name,
+    };
+    addExpanse(list);
+    setDate('');
+    setCurrency('');
+    setName('');
+    setNumber(0);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <Counter />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
+    <>
+      <div className='container'>
+        <input
+          type='date'
+          onChange={(e) => setDate(e.target.value)}
+          value={date}
+        />
+        <input
+          type='number'
+          onChange={(e) => setNumber(e.target.value)}
+          value={number}
+        />
+        <input
+          type='text'
+          onChange={(e) => setCurrency(e.target.value)}
+          value={currency}
+          placeholder='Currency(PLN)'
+        />
+        <input
+          type='text'
+          onChange={(e) => setName(e.target.value)}
+          value={name}
+          placeholder='Add Prodact'
+        />
+        <input
+          type='submit'
+          disabled={onDisabled}
+          onClick={submitValue}
+          value='Add Expanses'
+        />
+      </div>
+      <div className='container'>
+        <button
+          disabled={date ? false : true}
+          onClick={() => sortExpanses(date)}
+        >
+          {date ? `filter expanses by${date}` : 'select date'}
+        </button>
+        <button onClick={() => dispatch(setTotal('PLN'))}>TOTAL EUR</button>
         <span>
-          <span>Learn </span>
-          <a
-            className="App-link"
-            href="https://reactjs.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux
-          </a>
-          <span>, </span>
-          <a
-            className="App-link"
-            href="https://redux-toolkit.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Redux Toolkit
-          </a>
-          ,<span> and </span>
-          <a
-            className="App-link"
-            href="https://react-redux.js.org/"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            React Redux
-          </a>
+          <i>total sum</i>{' '}
+          {rates ? `${EUR.toFixed(2)}EUR` : `${sum.toFixed(2)}PLN`}
         </span>
-      </header>
-    </div>
+        <List />
+      </div>
+    </>
   );
-}
+};
+const mapDispatchToProps = {
+  addExpanse,
+  sortExpanses,
+};
 
-export default App;
+export default connect(null, mapDispatchToProps)(App);
