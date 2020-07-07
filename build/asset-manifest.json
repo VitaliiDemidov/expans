@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/expanses-testWork/static/css/main.94ddb379.chunk.css",
+    "main.js": "/expanses-testWork/static/js/main.a88df2ab.chunk.js",
+    "main.js.map": "/expanses-testWork/static/js/main.a88df2ab.chunk.js.map",
+    "runtime-main.js": "/expanses-testWork/static/js/runtime-main.9632febe.js",
+    "runtime-main.js.map": "/expanses-testWork/static/js/runtime-main.9632febe.js.map",
+    "static/js/2.e31ce1b1.chunk.js": "/expanses-testWork/static/js/2.e31ce1b1.chunk.js",
+    "static/js/2.e31ce1b1.chunk.js.map": "/expanses-testWork/static/js/2.e31ce1b1.chunk.js.map",
+    "index.html": "/expanses-testWork/index.html",
+    "precache-manifest.151069357a0e0f680331b99508078ac0.js": "/expanses-testWork/precache-manifest.151069357a0e0f680331b99508078ac0.js",
+    "service-worker.js": "/expanses-testWork/service-worker.js",
+    "static/css/main.94ddb379.chunk.css.map": "/expanses-testWork/static/css/main.94ddb379.chunk.css.map",
+    "static/js/2.e31ce1b1.chunk.js.LICENSE.txt": "/expanses-testWork/static/js/2.e31ce1b1.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.9632febe.js",
+    "static/js/2.e31ce1b1.chunk.js",
+    "static/css/main.94ddb379.chunk.css",
+    "static/js/main.a88df2ab.chunk.js"
+  ]
+}
