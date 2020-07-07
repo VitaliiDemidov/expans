@@ -18,10 +18,10 @@ export const sortExpanses = (payload) => ({
   payload,
 });
 
-export const setTotal = (payload) => {
+export const setTotal = () => {
   return async (dispatch) => {
     const response = await fetch(
-      `http://data.fixer.io/api/latest?access_key=a683de89039615c4e5549e72e783c63f&symbols=${payload}`
+      `http://data.fixer.io/api/latest?access_key=a683de89039615c4e5549e72e783c63f&symbols=PLN`
     );
     const json = await response.json();
     const rates = json.rates;

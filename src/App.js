@@ -70,7 +70,7 @@ const App = ({ addExpanse, sortExpanses }) => {
         >
           {date ? `filter expanses by${date}` : 'select date'}
         </button>
-        <button onClick={() => dispatch(setTotal('PLN'))}>TOTAL EUR</button>
+        <button onClick={() => dispatch(setTotal())}>TOTAL EUR</button>
         <span>
           <i>total sum</i>{' '}
           {rates ? `${EUR.toFixed(2)}EUR` : `${sum.toFixed(2)}PLN`}
