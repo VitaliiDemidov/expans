@@ -8,5 +8,5 @@ and using total button you can convert your amount expances into EURO (by up to 
 
 
 
-There is an issue with Fixer API wich i'm using here.
-unfortunately it doesn't support https on free account and that is cause an error when deployed
+There is an issue with Fixer API wich i'm using here.I deploy on github pages but api doesn't responds
+unfortunately it doesn't support https on free account and that is cause an error when try to fetch data from APi
