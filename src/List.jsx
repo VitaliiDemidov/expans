@@ -1,6 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import { removeExpanse } from './redux/actions';
 import './App.css';
 
 const List = ({ data, removeExpanse }) => {
@@ -31,14 +29,5 @@ const List = ({ data, removeExpanse }) => {
     </ul>
   );
 };
-const mapDispatchToProps = {
-  removeExpanse,
-};
 
-const mapStateToProps = (state) => {
-  return {
-    data: state.expanse,
-  };
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(List);
+export default List;

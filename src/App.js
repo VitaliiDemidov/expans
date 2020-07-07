@@ -1,31 +1,36 @@
 import React, { useState } from 'react';
 import './App.css';
 import List from './List';
-import { addExpanse, setTotal, sortExpanses } from './redux/actions';
-import { connect, useDispatch, useSelector } from 'react-redux';
+import {
+  addExpanse,
+  setTotal,
+  sortExpanses,
+  removeExpanse,
+} from './redux/actions';
+import { connect, useSelector } from 'react-redux';
 
-const App = ({ addExpanse, sortExpanses }) => {
-  const amount = useSelector((state) => state.expanse);
+const App = ({ addExpanse, sortExpanses, removeExpanse, setTotal }) => {
+  const list = useSelector((state) => state.expanse);
   const rates = useSelector((state) => state.data.total);
-  const dispatch = useDispatch();
 
-  const [date, setDate] = useState(0);
+  const [date, setDate] = useState('');
   const [number, setNumber] = useState(0);
   const [name, setName] = useState('');
   const [currency, setCurrency] = useState('');
+  const [togle, setTogle] = useState(false);
 
   const onDisabled = name && date && number && currency ? false : true;
-  const sum = amount.reduce((acc, item) => acc + +item.number, 0);
-  const EUR = amount.reduce((acc, item) => acc + +item.number / rates, 0);
+  const sum = list.reduce((acc, item) => acc + +item.number, 0);
+  const EUR = list.reduce((acc, item) => acc + +item.number / rates, 0);
 
   const submitValue = () => {
-    const list = {
+    const obj = {
       date,
       number,
       currency,
       name,
     };
-    addExpanse(list);
+    addExpanse(obj);
     setDate('');
     setCurrency('');
     setName('');
@@ -65,17 +70,24 @@ const App = ({ addExpanse, sortExpanses }) => {
       </div>
       <div className='container'>
         <button
-          disabled={date ? false : true}
+          disabled={date && list.length > 0 ? false : true}
           onClick={() => sortExpanses(date)}
         >
           {date ? `filter expanses by${date}` : 'select date'}
         </button>
-        <button onClick={() => dispatch(setTotal())}>TOTAL EUR</button>
+        <button
+          onClick={() => {
+            setTotal();
+            setTogle(!togle);
+          }}
+        >
+          TOTAL {togle ? 'PLN' : 'EUR'}
+        </button>
         <span>
           <i>total sum</i>{' '}
-          {rates ? `${EUR.toFixed(2)}EUR` : `${sum.toFixed(2)}PLN`}
+          {togle ? `${EUR.toFixed(2)}EUR` : `${sum.toFixed(2)}PLN`}
         </span>
-        <List />
+        <List removeExpanse={removeExpanse} data={list} />
       </div>
     </>
   );
@@ -83,6 +95,7 @@ const App = ({ addExpanse, sortExpanses }) => {
 const mapDispatchToProps = {
   addExpanse,
   sortExpanses,
+  removeExpanse,
+  setTotal,
 };
-
 export default connect(null, mapDispatchToProps)(App);
